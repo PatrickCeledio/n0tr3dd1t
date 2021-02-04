@@ -1,0 +1,91 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/public/css/viewpost.css">
+</head>
+
+<div id="post-container">
+    <div class="site-img-content" id="photo-container">
+        <img id="post-image" width="400" height="400" src="/{{currentPost.photopath}}">
+
+        <div id="post-info">
+            <h1 id="image-post-title-next"><i>{{currentPost.title}}</i></h1>
+            <h2 id="image-post-author" class="info-tags"><i>Uploaded by: {{currentPost.username}}</i></h2><br>
+            <p id="image-post-date" class="info-date"><b>Created:</b> {{currentPost.created}}</p><br>
+            <h2 id="image-post-desc" class="info-tags"><i>Description:</i></h2>{{currentPost.description}}<br><br>
+        </div>
+    </div>
+
+    <div id="comment-container">
+        <div id="messages">
+            {{#each currentPost.comments}}
+                {{> comments this}}
+            {{/each}}
+        </div>
+
+        <div id="comment-box">
+            <h2 class="comment-box-font">Comment Box:</h2>
+            <button id="comment-box-button">Post Comment</button><br><br>
+            <textarea id="comment-box-text" placeholder="What do you think?..."></textarea>
+        </div>
+    </div>    
+</div>
+
+<script>
+    // Force UTC Timezone
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Get the date string 
+        document.querySelectorAll('span[class=date-posted]').forEach((postedDate) => {
+            // Change date string to UTC
+            postedDate.textContent = new Date(postedDate.textContent).toLocaleString();
+        });
+    });
+
+    function addMessage(data) {
+        let template = document.createElement('template');
+        template.innerHTML = 
+        `<div id="message-${data.commentId}">
+            <strong class="author-text">@${data.username}</strong>
+            <span class="date-posted">${new Date().toLocaleString()}</span>
+            <div class="comment-text">${data.comment}</div>
+        </div>
+        `;
+
+        document.getElementById('messages').firstChild.before(template.content.firstChild);
+    }
+
+    // Comment button behavior
+    document.getElementById('comment-box-button').onclick = (event) => {
+        console.log("click");
+        // Scrape text from comment box
+        let commentText = document.getElementById('comment-box-text').value;
+        // Regex expression that returns the post id
+        let postId = document.location.pathname.match(/\d+/g).map(Number)[0];
+        console.log(commentText);
+        //if no comment text
+        if (!commentText) {
+            return;
+        }
+    
+        let fetchOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "Application/json"
+            },
+            body: JSON.stringify({
+                comment:commentText,
+                postId, postId,
+            })
+        }
+        fetch('/comments/create', fetchOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                if(data.code == 1) {
+                    addMessage(data);
+                }else{
+                    addFlashFromFrontEnd(data.message, data.status);
+                }
+                
+            })
+            .catch(err => console.log(err));
+            
+    }
+</script>

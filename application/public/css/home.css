@@ -1,0 +1,49 @@
+body {
+    background-image: url('https://media.giphy.com/media/smzfl3E7a4iHK/source.gif');
+}
+
+.container {
+    max-width: 100%;
+}
+
+.container h1 {
+    color: white;
+    text-align: center;
+}
+
+
+.container button {
+    background-color: rgb(212, 0, 255);
+    border: 2px solid rgb(71, 0, 118);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    display: block;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+div.pictures {
+    background-color: wheat;
+    margin: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    float: left;
+    width: calc(20% - 25px);
+}
+
+div.pictures:hover {
+    border: 1px solid rgb(255, 208, 0);
+}
+
+div.pictures img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+

@@ -1,0 +1,69 @@
+MySQL Workbench
+    File > New Model > Diagram
+        Double click Schema
+            Rename schema and click 'Rename References' right after
+
+Diagram 
+    - A visual representation of the database
+        -SQL varchar usually holds 1 byte per character and 
+        2 more bytes for the length information
+Etc
+    - Table names are plural
+    - On a linux system, the longest varchar is 4096 characters
+    - fk_userid and id must be the same data type
+
+Time Zones
+    - Databases should be time agnostic and UTC compliant
+
+Foreign Keys
+    - Cascade sets that if the user object changes, then the 
+    related posts objects changes with it
+
+Scripting
+    - In the example of 
+        CREATE DATABASE IF NOT EXISTS `csc317project`;
+
+        USE `csc317project`;
+    
+    The strings are enclosed in backticks, not single quotation marks
+
+Statements
+    - SELECT 
+        - Grabs data from a table
+        - e.g. SELECT * FROM users;
+            - This code returns all the objects from the table `users`
+        - WHERE adds a conditional statement
+            - e.g. e.g. SELECT * FROM users WHERE id="blah"
+    - INSERT
+        - Inserts a row into a table with given information
+        e.g.INSERT INTO `csc317project`.`users`
+            (`id`,
+            `username`,
+            `email`,
+            `password`,
+            `usertype`,
+            `active`,
+            `created`)
+
+            Replace the text enclosed in arrow pointers and
+            fill in the values with strings enclosed in double quotation marks
+
+            VALUES
+            ("username", "test@mail.com", "1234", etc);
+    - UPDATE
+        - Updates the data of a given argument
+        - e.g. UPDATE `csc317project`.`users`
+               SET 
+               `username` = "happyguy123"
+                WHERE id=2
+        - Conversely, DELETE works the same way, but deletes the data
+    - SELECT users.username, posts.title, posts.description, 
+            posts.photopath, posts.created, posts.fk_userid
+        FROM USERS
+        INNER JOIN posts ON users.id=posts.fk_userid;
+
+Known Errors
+    - Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails 
+        - The foreign key value does not exists. e.g. User 44 has to exist before we make a reference to it
+
+                

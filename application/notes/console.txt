@@ -1,0 +1,23 @@
+In the console from Google Chrome:
+
+    fetch('http://localhost:3000/dbtest/getAllPosts').then((data) => data.json()).then((JSON_data) => console.log(JSON_data));
+
+This line of code returns all the rows from the table `Posts`, 
+
+Fetch API
+    - Returns data from server by giving it a URL to fetch data from
+    - dot operator then() function returns a Promise
+        - Promise means a Javascript object that is supposed to produce a single value sometime in the future, either resolved or unresolved value
+    - => data.json() converts the fetched data into json data
+    - console.log() prints the data into the console
+
+Promises
+    - resolved
+    - rejected
+
+Destructuring
+    - Gives names to array values
+    - e.g. const [x,y] = [1,2];
+        - x will equal 1, y = 2
+
+Curl

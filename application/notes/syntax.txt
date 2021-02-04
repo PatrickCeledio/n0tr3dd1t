@@ -1,0 +1,22 @@
+// Async and Away syntax
+async function test(){
+    try{
+        async events
+    }catch (err){
+        // handle err
+    }
+}
+
+// Promise chain syntax
+doSomething()
+.then(function(result) {
+  return doSomethingElse(result);
+})
+.then(function(newResult) {
+  return doThirdThing(newResult);
+})
+.then(function(finalResult) {
+  console.log('Got the final result: ' + finalResult);
+})
+.catch(failureCallback);
+

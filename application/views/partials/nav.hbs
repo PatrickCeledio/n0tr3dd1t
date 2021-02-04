@@ -1,0 +1,13 @@
+<nav id="nav-bar">
+    <input id="search-text" name="search-text" type="text">
+    <button color= "#000000" id="search-button" class="nav-button" type="text">Search Photos</button>
+    <br><a href="/imagepost" id="post-button" class="nav-items anchor-buttons">Upload a Photo</a><br>
+    
+    {{#if logged}}
+    <a href="/" id="logout-button" class="nav-items anchor-buttons">Log out</a><br>
+    <a class=".login-register" href="/">Home</a><br>
+    {{else}}
+    <a href="/login" id="authenticate-button" class="nav-items anchor-buttons">Log in</a><br>
+    <a class=".login-register" href="/">Home</a><br>
+    {{/if}}
+</nav>

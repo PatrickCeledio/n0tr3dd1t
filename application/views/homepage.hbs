@@ -1,0 +1,30 @@
+<div class="grid-container">
+    <header class="site-header">        
+        <a href="/" id="logout-button"><h1>The Photo Application</h1></a>
+    </header>
+    
+    <div class="site-content">
+        {{#if logged}}
+        <h2>Welcome, user. </h2>
+        <br><br><a href="/imagepost">Post Image</a> <br>
+        {{else}}
+        <h2>Welcome, please log in or register. </h2>
+        <a href="/login" id="login-button">Log in</a><br>
+        <a href="/registration">Register</a><br>
+        {{/if}}
+    </div>
+
+    <div id="main-content"></div>
+
+    {{#each results}}
+        {{> card this}}
+    {{/each}}
+
+
+    <footer class="site-footer">
+        <nav>
+            <div>
+            </div>
+        </nav>
+    </footer>
+</div>

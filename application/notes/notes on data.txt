@@ -1,0 +1,49 @@
+What kind of data are we storing?
+
+Two major objects:
+    - Users
+        - Id
+        - Username
+        - Email
+        - Password
+        - User type
+        - Active (e.g. E-mail verification)
+        - Date of creation
+
+    - Posts
+        - Id 
+        - Title
+        - Description
+        - Photo path
+        - Thumbnail
+        - Active
+        - Date of creation
+        -fk_userid
+Etc
+    - Large file photos stored in database could slowdown the database
+    - Storing username within post object may be wasteful
+        - test123 -> 7 bytes (length of username) + 1 byte (collumn type) = (8 bytes * n amount of posts) * u amount of users 
+            (e.g. 8*1000 = 8000 bytes * 1,000,000 users)
+        - Instead, we should store user id
+    - fk = foreign keys
+        - Pointers to users
+    - UUID for large applications
+
+Submitting data from form 
+    encType means what kind of data is being sent to the browser
+
+    <form action="(localhost:3000)/dbtest/createUser" method="POST"
+        encType="x-www-form-urlencoded">
+
+        <input id="password" name="password"/>
+        <input id="username" name="username"/>
+        <input id="email" name="email"/>
+        <input id="button" name="submit"/>
+    
+    </form>
+
+Add user by backend
+    curl -H "Content-Type: application/x-www-form-urlencoded" 
+    -X POST 
+    -d "username=tonytest&email=fake323232@mail.com&password=poopoo" 
+    localhost:3000/dbtest/createUser

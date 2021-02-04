@@ -1,0 +1,93 @@
+<div class="grid-container">
+    <header class="site-header">
+        <section>
+            <h1>Upload Image to Application</h1>
+            <p>Upload an image of your choice!</p>
+        </section>
+    </header>
+
+    <aside class="site-lsidebar">
+        <!-- Sidebar content goes here! -->
+    </aside>
+
+    <aside class="site-rsidebar">
+        <!-- Sidebar content goes here! -->
+    </aside>
+
+    <div class="site-content">
+        <form method="POST" id="post-image" class="form-grid-postimage" enctype="multipart/form-data" action='/posts/createPost'>
+            <label for="title">Title: </label><br>
+            <input type="text" id="title" placeholder="Post Title" name="title"><br><br>
+
+            <label for="description">Description:</label><br>
+            <input type="text" id="description" placeholder="Post Description Here..." name="description"><br><br>
+
+            <label for="uploadImage">Image:</label><br>
+            <input type="file" id="uploadImage" name="uploadImage"><br><br>
+
+            <label for="acceptPolicy">Check the box to accept Acceptable Use Policy before uploading your image</label>
+            <input type="checkbox" id="acceptPolicy" placeholder="" name="acceptPolicy"><br><br>
+
+            <label for="submitImage"> Click the 'Upload' button below to submit the image. </label>
+            <input type="submit" id="post-image" value="Upload" required><br><br>
+        </form>
+    </div>
+
+    <footer class="site-footer">
+        {{#if logged}}
+        <a class=".login-register" href="/">Homepage</a><br>
+        <a href="/" id="logout-button" action="/users/logout">Log out</a>
+        {{else}}
+        <p>How are you posting if you are not logged in?</p>
+        <a class=".login-register" href="registration"> Please Register</a>
+        {{/if}}
+    </footer>
+</div>
+
+<script>
+    const _form = document.getElementById('post-image');
+    _form.onsubmit = function (event) {
+        // Prevents default behavior, user function overrrides default
+        event.preventDefault();
+        let _body = new FormData(_form);
+
+        
+        // Send asynchronous call
+        fetch('/posts/createPost', {
+            body: _body,
+            method: "POST",
+        })
+        /*
+        // Get and print json file
+        .then((data) => {
+            //console.log(data);
+            return data.json();
+        })*/
+        .then((dataAsObject) => {
+            //console.log(dataAsObject);
+            //alert(dataAsObject.message);
+            location.replace('/');
+        })
+        .catch(err => console.log(err));
+        
+
+        /*
+        // Send asynchronous call
+        axios('/posts/createPost', {
+            data: _body,
+            method: "POST"
+        })
+            .then((data) => {
+                console.log(data);
+                let response = data.data;
+                alert(data.data.message);
+                location.replace(data.redirect);
+            })
+            .catch(err => console.log(err));
+        */
+
+        // Deprecated way 
+        // _body.append('title', document.getElementById('title').textContent)
+
+    }
+</script>
